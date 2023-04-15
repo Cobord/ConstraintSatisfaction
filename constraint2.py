@@ -97,14 +97,13 @@ class ProblemCached(Problem):
         if self.resolve:
             self.clearSolutions()
             return super().getSolution()
-        else:
-            fresh_solution = next(self.solutions_iterator, None)
-            if fresh_solution is not None:
-                self.solutions_iterated.append(fresh_solution)
-                return fresh_solution.copy()
-            if self.solutions_iterated:
-                return self.solutions_iterated[0].copy()
-            return None
+        fresh_solution = next(self.solutions_iterator, None)
+        if fresh_solution is not None:
+            self.solutions_iterated.append(fresh_solution)
+            return fresh_solution.copy()
+        if self.solutions_iterated:
+            return self.solutions_iterated[0].copy()
+        return None
     def getSolutions(self) -> List[SolutionType]:
         """get all the solutions"""
         if self.resolve:
@@ -173,8 +172,8 @@ class ProblemCached(Problem):
         other_nonempty = len(other._variables)>0
         for _,variables in cross_constraint_list:
             if variables is not None:
-                overlaps_self = any([var in self._variables for var in variables])
-                overlaps_other = any([var in other._variables for var in variables])
+                overlaps_self = any((var in self._variables for var in variables))
+                overlaps_other = any((var in other._variables for var in variables))
             else:
                 overlaps_self = self_nonempty
                 overlaps_other = other_nonempty
