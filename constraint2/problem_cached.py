@@ -7,9 +7,10 @@ constraints or combining with another disjoint problem
 # pyright: reportMissingModuleSource=false
 # pyright: reportMissingImports=false
 # pylint:disable=import-error
+from collections.abc import Hashable
 from typing import (
     Any, Callable, Dict,
-    Hashable, Iterable, Iterator,
+    Iterable, Iterator,
     List, Optional, Sequence, Set, Tuple, Union
 )
 from itertools import chain,product,starmap
